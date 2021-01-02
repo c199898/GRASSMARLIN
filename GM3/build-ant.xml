@@ -26,6 +26,8 @@ and requires a JDK of at least 1.8.66 (NOTE: I think it is 1.8.66 or newer; a
 slightly older build may work, however some earlier versions of 1.8 have issues
 where methods that are used in GRASSMARLIN are declared private).
 -->
+
+
 <project name="Grassmarlin" default="distribution" basedir=".">
     <property name="build.dir" value="build"/>
     <property name="build.classes.dir" value="${build.dir}/classes"/>
@@ -144,7 +146,7 @@ where methods that are used in GRASSMARLIN are declared private).
         <jar destfile="${build.app}/plugins/iadgov.svgexport.jar" basedir="${build.dir}/plugins/iadgov.svgexport/classes" />
     </target>
 
-    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <taskdef name="xjc" classname="com.sun.tools.xjc.XJC2Task">
         <classpath refid="jaxb.classpath"/>
     </taskdef>
 
@@ -162,6 +164,7 @@ where methods that are used in GRASSMARLIN are declared private).
         <xjc schema="${resources.xsd}\fingerprint3.xsd" package="core.fingerprint3" destdir="${gen.dir}">
             <produces dir="${gen.dir}/core/fingerprint3" includes="**/*.java"/>
         </xjc>
+
     </target>
 
     <target name="distribution" description="Directory to install as application directory" depends="jar,plugins">
@@ -313,6 +316,7 @@ where methods that are used in GRASSMARLIN are declared private).
         <!-- TODO: Add additional dependencies as other installer workflows are prepared. -->
     </target>
 
+
     <target name="release" depends="installers_all" description="Prepare source and installers for public or internal release">
         <mkdir dir="${build.release}" />
         <copydir src="data" dest="${build.release}/data" />
@@ -339,4 +343,7 @@ where methods that are used in GRASSMARLIN are declared private).
         <copy file="${build.app}/plugins/iadgov.offlinepcap.jar" toFile="${build.release}/Plugins/iadgov.offlinepcap.jar" />
         <copy file="${build.app}/plugins/iadgov.svgexport.jar" toFile="${build.release}/Plugins/iadgov.svgexport.jar" />
     </target>
+
 </project>
+
+
